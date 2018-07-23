@@ -100,28 +100,78 @@ public:
 			}
 		}
 	}
+
+	int find(int i,int *parent)
+	{
+		if(parent[i]==i)
+		{
+			return i;
+		}
+		return find(parent[i],parent);
+	}
+	void uni(int x,int y,int *parent)
+	{
+		int xp=find(x,parent);
+		int yp=find(y,parent);
+		parent[yp]=xp;
+	}
+	bool isCyclic()
+	{
+		int *parent = new int [V];
+		for(int i=0;i<V;i++)
+		{
+			parent[i]=i;
+		}
+		//Cycle ka logic
+		for(int i=0;i<V;i++)
+		{
+			for(auto j=l[i].begin();j!=l[i].end();j++)
+			{
+				int x=i;
+				int y=j->first;      
+                //cout<<endl;
+				int xParent=find(x,parent);
+				int yParent=find(y,parent);
+				if(xParent==yParent)
+				{
+					for(int i=0;i<V;i++)
+				{	
+					cout<<parent[i]<<" ";
+				}
+				cout<<endl; 
+					return true;
+				}
+				uni(x,y,parent);
+			}
+		}
+		return false;
+	}
 };
 int main()
 {
 	Graph g(6);
 	//cout<<"hello";
-/*	g.addEdge(0,1,1);
-	g.addEdge(0,4,6);
-	g.addEdge(4,1,3);
-	g.addEdge(1,2,4);
+	g.addEdge(0,1,1);
+	g.addEdge(0,2,6);
+	g.addEdge(3,1,3);
+	g.addEdge(3,2,4);
 	g.addEdge(4,2,1);
-	g.addEdge(4,5,7);
-	g.addEdge(5,3,2);
-	g.addEdge(2,3,3);*/
+	g.addEdge(4,3,7);
+	g.addEdge(5,4,2);
+	//g.addEdge(2,3,3);
 	//g.dijkstra(0);
 	//g.printAdjList();
-	g.addEdge(0,3,1,false);
+/*	g.addEdge(0,3,1,false);
 	g.addEdge(0,2,6,false);
 	g.addEdge(3,4,3,false);
 	g.addEdge(3,5,4,false);
 	g.addEdge(4,5,1,false);
 	g.addEdge(2,3,7,false);
 	g.addEdge(2,5,2,false);
-	g.addEdge(1,2,3,false);
-	g.topologicalSort();
+	g.addEdge(1,2,3,false);*/
+	g.printAdjList();
+	if(g.isCyclic())
+		cout<<"Cycle hai";
+	else
+		cout<<"Cycle nhin hai";
 }
