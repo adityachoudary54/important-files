@@ -56,5 +56,5 @@ int main()
     {
         dp[i]=INT_MAX;
     }
-    cout<<minCoinsDP(amnt,ind_coins,n,dp);
+    cout<<minCoins(amnt,ind_coins,n,dp);
 }
