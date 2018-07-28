@@ -8,11 +8,11 @@ int waysToOne(int n)
     }
     int way1=INT_MAX,way2=INT_MAX,way3=INT_MAX;
     if(n%2==0)
-        way1=waysToOne(n/2)+1;
+        way1=waysToOne(n/2);
     if(n%3==0)
-        way2=waysToOne(n/3)+1;
-    way3=waysToOne(n-1)+1;
-    return min(way1,min(way2,way3));
+        way2=waysToOne(n/3);
+    way3=waysToOne(n-1);
+    return min(way1,min(way2,way3))+1;
 }
 int waysToOnebottomup(int n)
 {
@@ -23,13 +23,13 @@ int waysToOnebottomup(int n)
     {
         way1=way2=way3=INT_MAX;
         if(i%2==0)
-            way1=dp[i/2]+1;
+            way1=dp[i/2];
         if(i%3==0)
-            way2=dp[i/3]+1;
+            way2=dp[i/3];
         if((i-1)!=0)
-            way3=dp[i-1]+1;
+            way3=dp[i-1];
        // cout<<way1<<" "<<way2<<" "<<way3<<endl;
-        dp[i]=min(way1,min(way2,way3));
+        dp[i]=min(way1,min(way2,way3))+1;
     }
    /* for(int i=1;i<=n;i++)
         cout<<dp[i]<<" ";*/
