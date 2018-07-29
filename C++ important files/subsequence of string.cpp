@@ -17,7 +17,7 @@ void subseq(char input[],char output[],int i, int j)
 }
 int main()
 {
-    char a[]="aabc";
+    char a[]="123";
     char b[3];
     subseq(a,b,0,0);
 }
