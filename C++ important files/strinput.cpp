@@ -7,7 +7,7 @@ int main()
     char ch,ch1;
     t=0;
     cin>>n;
-    cin.get();//cin>>ch will also work
+    cin.get();//this will only work.
     for(i=0;i<n;i++)
     {
         getline(cin,a[i],'\n');
