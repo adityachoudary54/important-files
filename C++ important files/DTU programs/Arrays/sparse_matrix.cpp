@@ -169,6 +169,7 @@ int sparsemat_mul(sparse_matrix a[],sparse_matrix b[],sparse_matrix mul[])
     int i=1,j=1,k=1;
     while(i!=a[0].val+1)
     {
+        //cout<<i<<" ";
         int x,y;
         x=a[i].row;
         y=b[j].row;
@@ -195,10 +196,16 @@ int sparsemat_mul(sparse_matrix a[],sparse_matrix b[],sparse_matrix mul[])
            // cout<<x<<" "<<y<<" "<<sum<<endl;
             k++;
         }
+        //added this while loop for the ptr2 pointer and changed its conditions
+        while(b[ptr2].row==y&&ptr2!=b[0].val+1)
+        {
+            ptr2++;
+        }
         j=ptr2;
         if(j==b[0].val+1)
         {
-            while(a[ptr1].row==x)
+            //changed some conditions in the while loop conditions
+            while(a[ptr1].row==x&&ptr1!=a[0].val+1)
             {
                 ptr1++;
             }
