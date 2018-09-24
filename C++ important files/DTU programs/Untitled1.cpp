@@ -8,7 +8,7 @@ public:
     {
         hours=minutes=seconds=0;
     }
-    time(int hr=0,int minu=0,int sec=0)
+    time(int hr,int minu,int sec)
     {
         hours=minutes=seconds=0;
         seconds=sec;
@@ -25,9 +25,15 @@ public:
         }
         hours+=hr;
     }
+    time(const time &a)
+    {
+        hours=a.hours;
+        minutes=a.minutes;
+        seconds=a.seconds;
+    }
     void display();
     void add(time a1,time a2);
-}c(0,0,0),a(2,15,15),b(3,46,48);
+};
 
 void time::display()
 {
@@ -54,9 +60,12 @@ void time::add(time a1,time a2)
 
 int main()
 {
+    time a(2,15,15),b(3,46,48),c;
     a.display();
     b.display();
     c.add(a,b);
     c.display();
+    time d=c;
+    d.display();
     return 0;
 }

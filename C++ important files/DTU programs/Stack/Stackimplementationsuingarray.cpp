@@ -31,8 +31,9 @@ void display(Stack a)
 {
     while(a.top!=-1)
     {
-        cout<<pop(a)<<endl;
+        cout<<pop(a)<<" ";
     }
+    cout<<endl;
 }
 int main()
 {

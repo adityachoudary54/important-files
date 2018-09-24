@@ -8,54 +8,44 @@ struct Queue
 };
 void insertq(Queue &q,int x)
 {
+    //cout<<q.rear<<" "<<q.front<<endl;
     if((q.rear+1)%size==q.front)
     {
         cout<<"Queue is full"<<endl;
     }
     else
     {
-        if(q.rear==-1)
-        {
-            q.front=0;
-            q.rear=0;
-            q.A[q.rear]=x;
-        }
-        else
-        {
-            q.rear=(q.rear+1)%size;
-            q.A[q.rear]=x;
-        }
+        q.A[q.rear]=x;
+        q.rear=(q.rear+1)%size;
     }
 }
 int deleteq(Queue &q)
 {
-    int x;
-    if(q.front==-1)
-    {
-        cout<<"empty queue"<<endl;
-        return -1;
-    }
     if(q.front==q.rear)
     {
-        //cout<<"Empty queue"<<endl;
-        x=q.A[q.front];
-        q.front=q.rear=-1;
-        return x;
+        cout<<"Empty queue"<<endl;
+        return -1;
     }
-    x=q.A[q.front];
+    int x=q.A[q.front];
     q.front=(q.front+1)%size;
     return x;
 }
 void displayq(Queue q)
 {
-    while(q.front!=-1)
-        cout<<deleteq(q)<<endl;
+    cout<<q.front<<" "<<q.rear<<endl;
+    int x=deleteq(q);
+    while(x!=-1)
+    {
+        cout<<x<<" ";
+        x=deleteq(q);
+    }
+    cout<<endl;
 }
 int main()
 {
     Queue a;
-    a.front=a.rear=-1;
-    insertq(a,2);
+    a.front=a.rear=0;
+    insertq(a,8);
     insertq(a,3);
     insertq(a,4);
     insertq(a,5);
@@ -63,7 +53,7 @@ int main()
     insertq(a,7);
     insertq(a,8);
     insertq(a,9);
-    insertq(a,9);
+    //insertq(a,9);
     displayq(a);
     deleteq(a);
     deleteq(a);
