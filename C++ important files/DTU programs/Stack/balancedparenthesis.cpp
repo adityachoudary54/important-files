@@ -51,17 +51,21 @@ void balancedparenthesis(Stack &a,char exp[])
                 pop(a);
             }
         }
+        if(i==0)
+            cout<<endl;
+        cout<<"Stack contents are:";
         display(a);
         i++;
     }
     if(a.top==-1)
-        cout<<"Complete";
+        cout<<"Parenthesis are balanced";
     else
-        cout<<"Incomplete";
+        cout<<"Parenthesis arent balanced";
 }
 int main()
 {
-    char exp[]="([)]";
+    char exp[]=")()";
+    cout<<"The given expression is:"<<exp;
     Stack a;
     balancedparenthesis(a,exp);
 }

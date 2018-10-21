@@ -98,7 +98,7 @@ char* postfixconv(Stack &a,char infix[])
             i++;
         }
         postfix[j]='\0';
-       // cout<<postfix<<"     ";
+        cout<<"Contents of the stack are:";
         display(a);//checking the status of stack after every iteration
     }
     postfix[j]='\0';
@@ -107,7 +107,9 @@ char* postfixconv(Stack &a,char infix[])
 int main()
 {
     Stack a;
-    char input[]="(a+b)*c-(d-e)*(f+g)$";
-    cout<<postfixconv(a,input);
+    char input[]="((a+b)-((c-d)*e)/f)*g$";
+    char* postfix;
+    postfix=postfixconv(a,input);
+    cout<<"Required postfix expression is:"<<postfix;
     return 0;
 }

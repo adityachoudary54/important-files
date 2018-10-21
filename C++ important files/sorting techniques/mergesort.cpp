@@ -41,7 +41,7 @@ void merge_sort(int a[],int left,int right)
 }
 int main()
 {
-    int a[]={5,1,3,4,2};
+    int a[]={5,4,3,2,1};
     int n=sizeof(a)/sizeof(int);
     merge_sort(a,0,n-1);
     for(int k=0;k<n;k++)

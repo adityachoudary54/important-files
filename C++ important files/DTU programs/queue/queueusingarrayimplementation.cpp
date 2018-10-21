@@ -23,7 +23,6 @@ int deleteq(Queue &q)
 {
     if(q.front==q.rear)
     {
-        cout<<"Empty queue"<<endl;
         return -1;
     }
     int x=q.A[q.front];
@@ -32,7 +31,6 @@ int deleteq(Queue &q)
 }
 void displayq(Queue q)
 {
-    cout<<q.front<<" "<<q.rear<<endl;
     int x=deleteq(q);
     while(x!=-1)
     {
@@ -45,20 +43,29 @@ int main()
 {
     Queue a;
     a.front=a.rear=0;
-    insertq(a,8);
-    insertq(a,3);
-    insertq(a,4);
-    insertq(a,5);
-    insertq(a,6);
-    insertq(a,7);
-    insertq(a,8);
-    insertq(a,9);
-    //insertq(a,9);
-    displayq(a);
-    deleteq(a);
-    deleteq(a);
-    displayq(a);
-    deleteq(a);deleteq(a);deleteq(a);deleteq(a);displayq(a);deleteq(a);deleteq(a);deleteq(a);
-    cout<<a.front<<a.rear<<endl;
+    char choice;
+    do
+    {
+        int x;
+        cout<<"Enter the operation you want to perform:"<<endl;
+        cout<<"1. Enqueue"<<endl;
+        cout<<"2. Dequeue"<<endl;
+        cout<<"3. Display"<<endl;
+        cout<<"4. exit"<<endl;
+        cin>>choice;
+        switch(choice)
+        {
+            case '1':cin>>x;
+                     insertq(a,x);
+            break;
+            case '2':deleteq(a);
+            break;
+            case '3':displayq(a);
+            break;
+            case '4':choice='n';
+            break;
+        }
+    }while(choice!='n');
+    //display(a);
     return 0;
 }

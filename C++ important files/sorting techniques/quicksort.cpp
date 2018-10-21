@@ -15,6 +15,11 @@ int partition(int a[],int start,int endi)
         i++;
     }
     swap(a[pindex],a[endi]);
+    for(int k=0;k<=(endi-start);k++)
+    {
+        cout<<a[k]<<" ";
+    }
+    cout<<start<<" "<<endi<<endl;
     return pindex;
 }
 void quick_sort(int a[],int start,int endi)
@@ -28,7 +33,7 @@ void quick_sort(int a[],int start,int endi)
 }
 int main()
 {
-    int a[]={5,1,3,4,2};
+    int a[]={1,2,5,4,3};
     int n=sizeof(a)/sizeof(int);
     quick_sort(a,0,n-1);
     for(int k=0;k<n;k++)
