@@ -12,5 +12,6 @@ int main()
     }
     // this solution makes use of the fact that any no. which repeats even no. of times gets cancelled when using xor operator
     cout<<ans;
-    return 0;
+    return
+    0;
 }

@@ -185,12 +185,10 @@ int sum_prblm(node* root)//address not updating only data is updating
     int temp,sum;
     temp=root->data;
     sum=sum_prblm(root->left)+sum_prblm(root->right);
-    if(sum!=0)
-    {
-        root->data=sum;
-        return sum+temp;
-    }
-    return temp;
+    if(sum==0)
+        return temp;
+    root->data=sum;
+    return sum+temp;
 }
 
 int diameter(node* root)
@@ -295,44 +293,109 @@ bool treeident(node* root1,node* root2)
     r=treeident(root1->right,root2->right);
     return (root1->data==root2->data)&&l&&r;
 }
+node* create_bt(int *in,int *pre,int s,int e)
+{
+    static int i = e;
+    node *root = new node(pre[i]);
+    if(s<=e)
+    {
+        int index=-1;
+        for(int j=s;s<=e;j++){
+            if(in[j]==pre[i]){
+                index = j;
+                break;
+            }
+        }
+        i--;//denotes the root on which we are working.
+        root->right = create_bt(in,pre,index+1,e);
+        root->left = create_bt(in,pre,s,index-1);
+        return root;
+    }
+    return NULL;
+}
 int main()
 {
-    node* root1=NULL;
-    node* root2=NULL;
-    //bool r;
-    cin>>root1;
-    //cout<<root1;
-    cin>>root2;
-   // cout<<root2;
-    if(treeident(root1,root2))
-        cout<<"dono same hain";
-    else
-        cout<<" dono alag hain";
-   /* cout<<root1<<endl;
-    cout<<root2<<endl;*/
-   /* if(ifbst(root))
-        cout<<"bst hai";
-    else
-        cout<<"bst ni hai";*/
-
-    /*   cout<<endl;
-    preorder(root);
-    cout<<endl;
-    inorder(root);
-    cout<<endl;
-    postorder(root);*/
-    cout<<endl;
-   // cout<<cnt_nodes(root);
-    //cout<<height_tree(root);
-  /*  cout<<"height of tree is:"<<height_tree(root)<<endl;
-    cout<<"diameter is:"<<diameter(root)<<endl;
-    cout<<"fast diameter is: "<<fastdiameter(root).diameter<<endl;
-    cout<<"amazing sum is:"<<amazingsum(root).first<<" "<<amazingsum(root).second<<endl;
-    cout<<"tree is height balanced:"<<impheight_balanced(root).second;
-
-    //sum_prblm(root);
-    mirror(root);
-    cout<<endl;
-    printtree(root);*/
+    node* head;
+    int cho;
+    head=NULL;
+    int prorder[]={4,5,2,6,7,3,1};
+    int inrder[]={4,2,5,1,6,3,7};
+    int n=sizeof(prorder)/sizeof(int);
+    cout<<"Enter the operation that u want to perform->"<<endl;
+    cout<<"1. Take input using preorder traversal"<<endl;
+    cout<<"2. Print the tree displaying parents with children"<<endl;
+    cout<<"3. Print the tree using preorder traversal"<<endl;
+    cout<<"4. Print the tree using inorder traversal"<<endl;
+    cout<<"5. Print the tree using postorder traversal"<<endl;
+    cout<<"6. Take input using level order traversal"<<endl;
+    cout<<"7. Print using level order traversal"<<endl;
+    cout<<"8. Print the tree using level order traversal in a pattern"<<endl;
+    cout<<"9. Count nodes of the tree created"<<endl;
+    cout<<"10. Display height of the tree"<<endl;
+    cout<<"11. Display diameter of the tree"<<endl;
+    cout<<"12. Display diameter of the tree using efficient algorithm"<<endl;
+    cout<<"13. Convert tree to its mirror image"<<endl;
+    cout<<"14. Check whether tree is balanced or not"<<endl;
+    cout<<"15. Check whether the given tree is binary search tree or not"<<endl;
+    cout<<"16. Sum problem"<<endl;
+    cout<<"17. Create bt"<<endl;
+    cout<<"18. exit()"<<endl;
+    do
+    {
+        cin>>cho;
+        switch(cho)
+        {
+        case 1:
+            head=takeInput();
+            break;
+        case 2:printtree(head);
+            cout<<endl;
+            break;
+        case 3:preorder(head);
+        cout<<endl;
+            break;
+        case 4:inorder(head);
+        cout<<endl;
+            break;
+        case 5:postorder(head);
+        cout<<endl;
+            break;
+        case 6:head=takeinputlevel();
+            break;
+        case 7:printlevel(head);
+        cout<<endl;
+            break;
+        case 8:printpatternlevel(head);
+        cout<<endl;
+            break;
+        case 9:cout<<"No. of nodes in the tree are:"<<cnt_nodes(head)<<endl;
+            break;
+        case 10:cout<<"The height of given tree is:"<<height_tree(head)<<endl;
+            break;
+        case 11:cout<<"The diameter of given tree is:"<<diameter(head)<<endl;
+            break;
+        case 12:cout<<"The diameter of given tree using efficient algorithm is:"<<fastdiameter(head).diameter<<endl;
+            break;
+        case 13:mirror(head);
+            break;
+        case 14:if(impheight_balanced(head).first)
+                    cout<<"Tree is balanced"<<endl;
+                else
+                    cout<<"Tree isn't balanced"<<endl;
+            break;
+        case 15:if(ifbst(head))
+                    cout<<"Tree is bst"<<endl;
+                else
+                    cout<<"Tree isn't bst"<<endl;
+            break;
+        case 16:sum_prblm(head);
+            break;
+        case 17://cout<<n;
+                head=create_bt(inrder,prorder,0,n-1);
+                break;
+        default:cho=18;
+            break;
+        }
+    }while(cho!=18);
     return 0;
 }

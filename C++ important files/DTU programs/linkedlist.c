@@ -90,6 +90,17 @@ void reverseitr(struct node** head)
     *head=prev;
 }
 
+struct node* recreverse(struct node* head)
+{
+    if(head->next==NULL||head==NULL)
+        return head;
+    struct node* temp=recreverse(head->next);
+    struct node* cur=head;
+    (cur->next)->next=cur;
+    cur->next=NULL;
+    return temp;
+}
+
 int length(struct node* head)
 {
     if(head==NULL)
@@ -110,7 +121,7 @@ void intersection(struct node* head,struct node* head2)
             head=head->next;
             head2=head2->next;
         }
-        printf("%d",head->data);
+        printf("%d\n",head->data);
     }
     else if(l1>l2)
     {
@@ -124,7 +135,7 @@ void intersection(struct node* head,struct node* head2)
             head=head->next;
             head2=head2->next;
         }
-        printf("%d",head->data);
+        printf("%d\n",head->data);
     }
     else
     {
@@ -138,44 +149,144 @@ void intersection(struct node* head,struct node* head2)
             head=head->next;
             head2=head2->next;
         }
-        printf("%d",head->data);
+        printf("%d\n",head->data);
     }
 }
 
+void midelement(struct node* head)
+{
+    struct node* fast=head->next;
+    for(;fast!=NULL&&fast->next!=NULL;head=head->next,fast=fast->next->next);
+    printf("%d\n",head->data);
+}
+
+struct node* mergelistdec(struct node* head1,struct node* head2)
+{
+    struct node* res=NULL;
+    struct node* ptr=NULL;
+    struct node* temp=NULL;
+    while(head1!=NULL&&head2!=NULL)
+    {
+        if(head1->data<head2->data)
+        {
+            ptr=head1->next;
+            head1->next=res;
+            res=head1;
+            head1=ptr;
+        }
+        else
+        {
+            ptr=head2->next;
+            head2->next=res;
+            res=head2;
+            head2=ptr;
+        }
+    }
+    if(head1!=NULL)
+    {
+        ptr=head1;
+        while(ptr!=NULL)
+        {
+            ptr=head1->next;
+            head1->next=res;
+            res=head1;
+            head1=ptr;
+        }
+        return res;
+    }
+    else
+    {
+        ptr=head2;
+        while(ptr!=NULL)
+        {
+            ptr=head2->next;
+            head2->next=res;
+            res=head2;
+            head1=ptr;
+        }
+        return res;
+    }
+}
 int main()
 {
-    struct node* head,* head2;
+    struct node* head,* head1,*head2,*temp1,*temp2;
+    int ch,num,num1,num2,i;
+    char cho;
     head=NULL;
     head2=NULL;
-    addatbegin(&head,2);
-    addatbegin(&head,8);
-    addatbegin(&head,6);
-    addatbegin(&head,9);
-    addatend(&head,1);
-    addatend(&head,2);
-    addatend(&head,3);
-    addatend(&head,4);
-   // deleteelement(&head,4);
-    display(head);
-    reverseitr(&head);
-    display(head);
-    addatend(&head2,1);
-    addatend(&head2,2);
-    addatend(&head2,3);
-    addatend(&head2,4);
-    display(head2);
-    struct node* temp,*temp2;
-    temp=head2;
-    temp2=head;
-    while(temp->next!=NULL)
+    head1=NULL;
+    printf("Enter the operation that u want to perform->\n");
+    printf("1. Insert at beginning\n");
+    printf("2. Insert at end\n");
+    printf("3. delete matching element\n");
+    printf("4. Reverse the linked list(iterative)\n");
+    printf("5. Reverse the linked list(recursive)\n");
+    printf("6. Length of the string\n");
+    printf("7. Intersection of the linked list\n");
+    printf("8. Display the linked list \n");
+    printf("9. Display middle element\n");
+    printf("10. exit()\n");
+//    addatbegin(&head1,8);
+//    addatbegin(&head1,6);
+//    addatbegin(&head1,4);
+//    addatbegin(&head1,2);
+//    //display(head1);
+//    addatbegin(&head2,7);
+//    addatbegin(&head2,5);
+//    addatbegin(&head2,3);
+//    addatbegin(&head2,1);
+//    //display(head2);
+//    head=mergelistdec(head1,head2);
+//    display(head);
+    do
     {
-        temp=temp->next;
-        temp2=temp2->next;
-        //printf("1");
-    }
-    printf("%d\n",temp2->data);
-    temp->next=temp2;
-    display(head2);
-    //printf("%d",length(head));
-    intersection(head,head2);
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:scanf("%d",&num);
+                addatbegin(&head,num);
+                break;
+            case 2:scanf("%d",&num);
+                addatend(&head,num);
+                break;
+            case 3:scanf("%d",&num);
+                deleteelement(&head,num);
+                break;
+            case 4:reverseitr(&head);
+                break;
+            case 5:head=recreverse(head);
+                break;
+            case 6:printf("%d\n",length(head));
+                break;
+            case 8:display(head);
+                break;
+            case 7:scanf("%d",&num1);
+                scanf("%d",&num2);
+                for(i=0;i<num1;i++)
+                        addatend(&head1,i);
+                for(i=0;i<num2;i++)
+                        addatend(&head2,i);
+                temp1=head1;
+                for(i=0;i<(num1-1)/2;i++)
+                    temp1=temp1->next;
+                temp2=head2;
+                while(temp2->next!=NULL)
+                    temp2=temp2->next;
+                temp2->next=temp1;
+                printf("Contents of list from head1 are:");
+                display(head1);
+                printf("Contents of list from head2 are:");
+                display(head2);
+                printf("Intersection point of the above lists is :");
+                intersection(head1,head2);
+                break;
+
+            case 9:midelement(head);
+                break;
+            case 10:break;
+            default:ch=10;
+        }
+    }while(ch!=10);
+    return 0;
 }
+
